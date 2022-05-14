@@ -1,0 +1,1 @@
+{"version":3,"file":"frp.routes.js","sourceRoot":"","sources":["../../src/routes/frp.routes.ts"],"names":[],"mappings":";;AAAA,qCAAoD;AAEpD,MAAM,MAAM,GAAG,IAAA,gBAAM,GAAE,CAAC;AAExB,MAAM,CAAC,GAAG,CAAC,MAAM,EAAE,CAAC,IAAa,EAAE,GAAa,EAAE,EAAE;IAClD,OAAO,GAAG,CAAC,IAAI,CAAC,gBAAgB,CAAC,CAAC;AACpC,CAAC,CAAC,CAAC;AAEH,kBAAe,MAAM,CAAC"}
