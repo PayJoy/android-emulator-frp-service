@@ -6,9 +6,7 @@
 npm i -g yarn
 ```
 
-## Project setup without Docker
-
-### Compiles and hot-reloads for development
+### Compiles and run the node server
 ```
 yarn install
 yarn run server
