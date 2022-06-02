@@ -31,7 +31,6 @@ require("colors");
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = require("dotenv");
 const routes_1 = __importDefault(require("./routes"));
-// Routes
 (0, dotenv_1.config)();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());

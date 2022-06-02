@@ -3,7 +3,6 @@ import "colors";
 import cors from "cors";
 import { config } from "dotenv";
 import routes from "./routes";
-// Routes
 
 config();
 

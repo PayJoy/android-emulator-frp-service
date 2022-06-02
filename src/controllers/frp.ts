@@ -1,66 +1,37 @@
-import { Data } from "../types/data";
-import { getDataValues, writeDataValues } from "../db";
+import { IDevice } from "../types/data";
+import { selectDevice, insertDevice, updateDevicePcb } from "../db";
+import { Request, Response } from "express";
 
-export const getValues = async (): Promise<Data | void> => {
-  const fileData = await getDataValues();
-  if (typeof fileData === "string") {
-    const data = fileData.split("\n");
-    return {
-      pcb: Number(data[0]),
-      imei: data[1],
-    };
-  }
-};
-
-export const setPcb = async (pcb: number): Promise<Data> => {
-  const fileData = await getDataValues();
-  if (fileData) {
-    const data: string[] = fileData.split("\n");
-    data[0] = pcb.toString();
-    await writeDataValues(data.join("\n"));
-    return {
-      pcb: Number(data[0]),
-      imei: data[1],
-    };
-  } else {
-    const data = [pcb, ""];
-    await writeDataValues(data.join("\n"));
-    return {
-      pcb,
-      imei: "",
-    };
-  }
-};
-
-export const setImei = async (imei: string): Promise<Data> => {
-  const fileData = await getDataValues();
-  if (fileData) {
-    const data: string[] = fileData.split("\n");
-    data[1] = imei;
-    await writeDataValues(data.join("\n"));
-    return {
-      pcb: Number(data[0]),
-      imei: data[1],
-    };
-  } else {
-    const data: string[] = ["", imei];
-    await writeDataValues(data.join("\n"));
-    return {
-      pcb: 0,
-      imei,
-    };
-  }
-};
-
-export const setValues = (imei: string, pcb: number): Data => {
-  const data = `${pcb}\n${imei}`;
+export const getDevice = async (_req: Request, res: Response) => {
   try {
-    writeDataValues(data);
-    return {
-      imei,
-      pcb,
-    };
+    const query = _req.query;
+    const result = await selectDevice(query.imei1 as string);
+    res.send(result);
   } catch (error) {
     console.log(error);
+    res.status(400);
+  }
+};
+
+export const registerDevice = async (_req: Request, res: Response) => {
+  try {
+    const { imei1, imei2, pcb }: IDevice = _req.body;
+    const result = await insertDevice(imei1, imei2, pcb);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+};
+
+export const updatePcb = async (_req: Request, res: Response) => {
+  try {
+    const { imei1 } = _req.query;
+    const { pcb } = _req.body;
+    const result = await updateDevicePcb(imei1 as string, pcb as number);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
   }
 };

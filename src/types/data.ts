@@ -1,4 +1,5 @@
-export interface Data {
-  imei: string;
+export interface IDevice {
+  imei1: string;
+  imei2: string;
   pcb: number;
 }
