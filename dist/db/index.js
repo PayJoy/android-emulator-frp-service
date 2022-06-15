@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateDevicePcb = exports.selectDevice = exports.insertDevice = void 0;
+exports.deleteDeviceFromTable = exports.updateDevicePcb = exports.selectDevice = exports.insertDevice = void 0;
 const path = __importStar(require("path"));
 const queries_1 = require("./queries");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -92,4 +92,18 @@ const updateDevicePcb = (imei1, pcb) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 exports.updateDevicePcb = updateDevicePcb;
+const deleteDeviceFromTable = (imei1) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
+        db.run(queries_1.DELETE_DEVICE, [imei1], (err) => {
+            if (err) {
+                reject(err);
+                throw err;
+            }
+            else {
+                resolve("Device deleted");
+            }
+        });
+    });
+});
+exports.deleteDeviceFromTable = deleteDeviceFromTable;
 //# sourceMappingURL=index.js.map

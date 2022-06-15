@@ -1,5 +1,5 @@
 import { IDevice } from "../types/data";
-import { selectDevice, insertDevice, updateDevicePcb } from "../db";
+import { selectDevice, insertDevice, updateDevicePcb, deleteDeviceFromTable } from "../db";
 import { Request, Response } from "express";
 
 export const getDevice = async (_req: Request, res: Response) => {
@@ -29,6 +29,17 @@ export const updatePcb = async (_req: Request, res: Response) => {
     const { imei1 } = _req.query;
     const { pcb } = _req.body;
     const result = await updateDevicePcb(imei1 as string, pcb as number);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+};
+
+export const deleteDevice = async (_req: Request, res: Response) => {
+  try {
+    const { imei1 } = _req.query;
+    const result = await deleteDeviceFromTable(imei1 as string);
     res.send(result);
   } catch (error) {
     console.log(error);

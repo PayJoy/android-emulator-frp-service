@@ -1,5 +1,5 @@
 import * as path from "path";
-import { INSERT_DEVICE, CREATE_DEVICES_TABLE, SELECT_DEVICE, UPDATE_DEVICE_PCB } from "./queries";
+import { INSERT_DEVICE, CREATE_DEVICES_TABLE, SELECT_DEVICE, UPDATE_DEVICE_PCB, DELETE_DEVICE } from "./queries";
 import { IDevice } from "../types/data";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -53,6 +53,19 @@ export const updateDevicePcb = async (imei1: string, pcb: number): Promise<IDevi
       } else {
         const updatedDevice = await selectDevice(imei1);
         resolve(updatedDevice);
+      }
+    });
+  });
+};
+
+export const deleteDeviceFromTable = async (imei1: string) => {
+  return new Promise((resolve, reject) => {
+    db.run(DELETE_DEVICE, [imei1], (err: Error) => {
+      if (err) {
+        reject(err);
+        throw err;
+      } else {
+        resolve("Device deleted");
       }
     });
   });

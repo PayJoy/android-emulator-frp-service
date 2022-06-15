@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatePcb = exports.registerDevice = exports.getDevice = void 0;
+exports.deleteDevice = exports.updatePcb = exports.registerDevice = exports.getDevice = void 0;
 const db_1 = require("../db");
 const getDevice = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -48,4 +48,16 @@ const updatePcb = (_req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.updatePcb = updatePcb;
+const deleteDevice = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { imei1 } = _req.query;
+        const result = yield (0, db_1.deleteDeviceFromTable)(imei1);
+        res.send(result);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(400).send(error);
+    }
+});
+exports.deleteDevice = deleteDevice;
 //# sourceMappingURL=frp.js.map
